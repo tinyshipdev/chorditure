@@ -18,7 +18,17 @@ Yeah [A]I've got a lot to [Bm]Say
 
 [G]They taped over your [A]mouth
 Scribbed out the [Bm]truth with their lies
-Your little spies`
+Your little spies
+
+[G] [F#]
+
+[Bm]Crush crush crush, crush crush (two three four)
+
+[Bm]Nothing [D]compares [A]to a quiet evening alone
+[G]Just [Bm]the one [A]two of us who’s counting on
+[Bm]That [D]never [A]happens I guess I’m dreaming again
+[G]Let’s me more than [A]…this
+`
 
 const song = parseSong(LYRICS);
 

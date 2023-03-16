@@ -56,9 +56,7 @@ function parseSong(data: string): { title: string, artist: string, lyrics: { c: 
       isLyrics = true;
       i++;
     } else {
-      if(line) {
-        song.lyrics.push(parseLine(line));
-      }
+      song.lyrics.push(parseLine(line));
       i++;
     }
   }
