@@ -30,3 +30,22 @@ body {
   height: 1rem;
   margin-bottom: 0.5rem;
 }
+
+/* Editor */
+
+.editor {
+  display: flex;
+}
+
+.editor-container {
+  padding: 2rem;
+}
+
+.editor-table {
+  width: 75%;
+  padding: 2rem;
+}
+
+.editor-line {
+  margin-bottom: 2rem;
+}
