@@ -1,43 +1,20 @@
-import parseSong from '@/utils/parse-song';
 import React, { useState } from 'react';
 
 interface Props {
+  song: { 
+    title: string, 
+    artist: string, 
+    lyrics: { c: string | null, w: string }[][] 
+  };
 }
 
-const LYRICS = `[title] 
-crushcrushcrush
-
-[artist] 
-paramore
-
-[lyrics]
-[Bm]I've got a lot to [D]say to you
-Yeah [A]I've got a lot to [Bm]Say
-[Bm]I’ve noticed your eyes are [D]always glued to me
-[A]Keeping them here and it makes no sense at all
-
-[G]They taped over your [A]mouth
-Scribbed out the [Bm]truth with their lies
-Your little spies
-
-[G] [F#]
-
-[Bm]Crush crush crush, crush crush (two three four)
-
-[Bm]Nothing [D]compares [A]to a quiet evening alone
-[G]Just [Bm]the one [A]two of us who’s counting on
-[Bm]That [D]never [A]happens I guess I’m dreaming again
-[G]Let’s me more than [A]…this
-`
-
-const song = parseSong(LYRICS);
 
 enum DisplayType {
   INLINE,
   ABOVE
 }
 
-const Sheet: React.FC<Props> = ({ }) => {
+const Sheet: React.FC<Props> = ({ song }) => {
   const [type, setType] = useState(DisplayType.ABOVE);
 
   const lines = () => {

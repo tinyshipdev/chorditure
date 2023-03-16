@@ -30,8 +30,17 @@ function parseLine(data: string) {
   return result;
 }
 
-function parseSong(data: string): { title: string, artist: string, lyrics: { c: string | null, w: string }[][] } {
-  let song: { title: string, artist: string, lyrics: { c: string | null, w: string }[][] } = {
+function parseSong(data: string): { 
+  title: string, 
+  artist: string, 
+  lyrics: { c: string | null, w: string }[][] 
+} {
+
+  let song: { 
+    title: string, 
+    artist: string, 
+    lyrics: { c: string | null, w: string }[][] 
+  } = {
     title: '',
     artist: '',
     lyrics: []
@@ -56,7 +65,9 @@ function parseSong(data: string): { title: string, artist: string, lyrics: { c: 
       isLyrics = true;
       i++;
     } else {
-      song.lyrics.push(parseLine(line));
+      if(isLyrics) {
+        song.lyrics.push(parseLine(line));
+      }
       i++;
     }
   }

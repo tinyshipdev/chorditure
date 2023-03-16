@@ -1,4 +1,6 @@
 import Sheet from '@/components/Sheet'
+import parseSong from '@/utils/parse-song'
+import TEST_LYRICS from '@/utils/test-lyrics'
 import Head from 'next/head'
 
 export default function Home() {
@@ -12,7 +14,7 @@ export default function Home() {
       </Head>
       <main>
         <div className="container">
-          <Sheet/>
+          <Sheet song={parseSong(TEST_LYRICS)}/>
         </div>
       </main>
     </>

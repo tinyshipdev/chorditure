@@ -1,3 +1,12 @@
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
 body {
   font-size: 20px;
   font-family: 'Courier New', Courier, monospace;
@@ -33,19 +42,27 @@ body {
 
 /* Editor */
 
-.editor {
+.editor-container {
   display: flex;
 }
 
-.editor-container {
+.editor {
+  width: 40%;
   padding: 2rem;
+  height: 100%;
+  font-size: 1rem;
+  border: 0px;
+  height: 100vh;
+  background: #f1f1f1;
 }
 
-.editor-table {
-  width: 75%;
-  padding: 2rem;
+.editor:focus {
+  outline: 0;
 }
 
-.editor-line {
-  margin-bottom: 2rem;
+.editor-preview {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
 }
