@@ -1,33 +1,26 @@
+import parseSong from '@/utils/parse-song';
 import React, { useState } from 'react';
 
 interface Props {
 }
 
-const song = {
-  title: 'crushcrushcrush',
-  artist: 'paramore',
-  lines: [
-    [
-      { chord: 'Bm', word: "I've" },
-      { chord: null, word: 'got' },
-      { chord: null, word: "a" },
-      { chord: null, word: "lot" },
-      { chord: null, word: "to" },
-      { chord: 'D', word: "say" },
-      { chord: null, word: "to" },
-      { chord: null, word: "you" }
-    ],
-    [
-      { chord: null, word: "Yeah" },
-      { chord: 'A', word: "I've" },
-      { chord: null, word: 'got' },
-      { chord: null, word: "a" },
-      { chord: null, word: "lot" },
-      { chord: null, word: "to" },
-      { chord: 'Bm', word: "say" },
-    ]
-  ]
-}
+const LYRICS = `[title] 
+crushcrushcrush
+
+[artist] 
+paramore
+
+[lyrics]
+[Bm]I've got a lot to [D]say to you
+Yeah [A]I've got a lot to [Bm]Say
+[Bm]I’ve noticed your eyes are [D]always glued to me
+[A]Keeping them here and it makes no sense at all
+
+[G]They taped over your [A]mouth
+Scribbed out the [Bm]truth with their lies
+Your little spies`
+
+const song = parseSong(LYRICS);
 
 enum DisplayType {
   INLINE,
@@ -40,12 +33,12 @@ const Sheet: React.FC<Props> = ({ }) => {
   const lines = () => {
     switch (type) {
       case DisplayType.INLINE: {
-        return song?.lines?.map((line) => {
+        return song?.lyrics?.map((line) => {
           return (
             <div className='line'>
               {line?.map((l) => (
                 <>
-                  <div><span className="chord">{l?.chord}</span> {l?.word}</div>
+                  <div><span className="chord">{l?.c}</span> {l?.w}</div>
                   <span>&nbsp;</span>
                 </>
               ))}
@@ -54,14 +47,14 @@ const Sheet: React.FC<Props> = ({ }) => {
         })
       }
       default: {
-        return song?.lines?.map((line) => {
+        return song?.lyrics?.map((line) => {
           return (
             <div className='line'>
               {line?.map((l) => (
                 <>
                   <div>
-                    <div className="chord">{l?.chord}</div>
-                    <div>{l?.word}</div>
+                    <div className="chord">{l?.c}</div>
+                    <div>{l?.w}</div>
                   </div>
                   <span>&nbsp;</span>
                 </>
