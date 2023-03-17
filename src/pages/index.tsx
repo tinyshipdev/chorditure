@@ -1,6 +1,3 @@
-import Sheet from '@/components/Sheet'
-import parseSong from '@/utils/parse-song'
-import TEST_LYRICS from '@/utils/test-lyrics'
 import Head from 'next/head'
 
 export default function Home() {
@@ -13,8 +10,10 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <div className="container">
-          <Sheet song={parseSong(TEST_LYRICS)}/>
+        <div className="home-container">
+          <h1>chorditure</h1>
+          <a className='song-link' href="/paramore/crushcrushcrush">crushcrushcrush - paramore</a>
+          <a className='song-link' href="/taylor-swift/love-story">love story - taylor swift</a>
         </div>
       </main>
     </>
