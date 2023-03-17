@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import Link from 'next/link'
 
 export default function Home() {
   return (
@@ -12,8 +13,8 @@ export default function Home() {
       <main>
         <div className="home-container">
           <h1>chorditure</h1>
-          <a className='song-link' href="/paramore/crushcrushcrush">crushcrushcrush - paramore</a>
-          <a className='song-link' href="/taylor-swift/love-story">love story - taylor swift</a>
+          <Link className='song-link' href="/paramore/crushcrushcrush">crushcrushcrush - paramore</Link>
+          <Link className='song-link' href="/taylor-swift/love-story">love story - taylor swift</Link>
         </div>
       </main>
     </>

@@ -35,7 +35,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({params}: any) {
-  const res = await fetch(`http://localhost:3000/songs/${params?.artist}/${params?.song}`);
+  const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/songs/${params?.artist}/${params?.song}`);
   const data = await res.text()
   return { props: { data } }
 }
