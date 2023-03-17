@@ -20,9 +20,9 @@ const Sheet: React.FC<Props> = ({ song }) => {
   const lines = () => {
     switch (type) {
       case DisplayType.INLINE: {
-        return song?.lyrics?.map((line) => {
+        return song?.lyrics?.map((line, index) => {
           return (
-            <div className='line'>
+            <div className='line' key={`line${index}`}>
               {line?.map((l, index) => (
                 <React.Fragment key={index}>
                   <div><span className="chord">{l?.c}</span> {l?.w}</div>
@@ -34,9 +34,9 @@ const Sheet: React.FC<Props> = ({ song }) => {
         })
       }
       default: {
-        return song?.lyrics?.map((line) => {
+        return song?.lyrics?.map((line, index) => {
           return (
-            <div className='line'>
+            <div className='line' key={`line${index}`}>
               {line?.map((l, index) => (
                 <React.Fragment key={index}>
                   <div>
