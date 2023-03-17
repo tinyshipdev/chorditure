@@ -23,11 +23,11 @@ const Sheet: React.FC<Props> = ({ song }) => {
         return song?.lyrics?.map((line) => {
           return (
             <div className='line'>
-              {line?.map((l) => (
-                <>
+              {line?.map((l, index) => (
+                <React.Fragment key={index}>
                   <div><span className="chord">{l?.c}</span> {l?.w}</div>
                   <span>&nbsp;</span>
-                </>
+                </React.Fragment>
               ))}
             </div>
           )
@@ -37,14 +37,14 @@ const Sheet: React.FC<Props> = ({ song }) => {
         return song?.lyrics?.map((line) => {
           return (
             <div className='line'>
-              {line?.map((l) => (
-                <>
+              {line?.map((l, index) => (
+                <React.Fragment key={index}>
                   <div>
                     <div className="chord">{l?.c}</div>
                     <div>{l?.w}</div>
                   </div>
                   <span>&nbsp;</span>
-                </>
+                  </React.Fragment>
               ))}
             </div>
           )
