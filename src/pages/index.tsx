@@ -15,6 +15,7 @@ export default function Home() {
           <h1>chorditure</h1>
           <Link className='song-link' href="/paramore/crushcrushcrush">crushcrushcrush - paramore</Link>
           <Link className='song-link' href="/taylor-swift/love-story">love story - taylor swift</Link>
+          <Link className='song-link' href="/macy-gray/i-try">i try - macy gray</Link>
         </div>
       </main>
     </>

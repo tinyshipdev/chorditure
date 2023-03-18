@@ -28,7 +28,8 @@ export async function getStaticPaths() {
   return {
     paths: [
       { params: { artist: 'paramore', song: 'crushcrushcrush'} },
-      { params: { artist: 'taylor-swift', song: 'love-story'} }
+      { params: { artist: 'taylor-swift', song: 'love-story'} },
+      { params: { artist: 'macy-gray', song: 'i-try'} }
     ],
     fallback: false
   };
