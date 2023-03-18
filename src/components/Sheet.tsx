@@ -1,11 +1,15 @@
 import { Chord } from '@/utils/types';
 import React, { useState } from 'react';
 
+// const ROOTS_ARR = ['A', 'A#', 'Bb', 'B', 'C', 'C#', 'Db', 'D', 'D#', 'Eb', 'E', 'F', 'F#', 'Gb', 'G', 'G#', 'Ab']
+
+const ROOTS_ARR = ['A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#']
+
 interface Props {
-  song: { 
-    title: string, 
-    artist: string, 
-    lyrics: { c: Chord | null, w: string }[][] 
+  song: {
+    title: string,
+    artist: string,
+    lyrics: { c: Chord | null, w: string }[][]
   };
 }
 
@@ -15,6 +19,7 @@ enum DisplayType {
 }
 
 const Sheet: React.FC<Props> = ({ song }) => {
+  const [transpose, setTranspose] = useState(0);
   const [type, setType] = useState(DisplayType.ABOVE);
 
   const lines = () => {
@@ -37,15 +42,25 @@ const Sheet: React.FC<Props> = ({ song }) => {
         return song?.lyrics?.map((line, index) => {
           return (
             <div className='line' key={`line${index}`}>
-              {line?.map((l, index) => (
-                <React.Fragment key={index}>
-                  <div>
-                    <div className="chord">{l?.c?.root}{l?.c?.type}</div>
-                    <div>{l?.w}</div>
-                  </div>
-                  <span>&nbsp;</span>
+              {line?.map((l, index) => {
+
+                let root = null;
+
+                if (l?.c?.root) {
+                  const r = ROOTS_ARR.indexOf(l?.c?.root);
+                  root = ROOTS_ARR[Math.abs((r + transpose) % ROOTS_ARR.length)];
+                }
+
+                return (
+                  <React.Fragment key={index}>
+                    <div>
+                      <div className="chord">{root}{l?.c?.type}</div>
+                      <div>{l?.w}</div>
+                    </div>
+                    <span>&nbsp;</span>
                   </React.Fragment>
-              ))}
+                )
+              })}
             </div>
           )
         })
@@ -64,6 +79,13 @@ const Sheet: React.FC<Props> = ({ song }) => {
           <option value={DisplayType.ABOVE}>Above</option>
           <option value={DisplayType.INLINE}>Inline</option>
         </select>
+
+        <div>
+          <button onClick={() => setTranspose(transpose - 1)}>-</button>
+          <span>Transpose ({transpose})</span>
+          <button onClick={() => setTranspose(transpose + 1)}>+</button>
+          <button onClick={() => setTranspose(0)}>reset</button>
+        </div>
       </div>
 
       <div>

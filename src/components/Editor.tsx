@@ -14,7 +14,7 @@ chorditure
 [A]Follow the syntax and [Fm]you'll get far
 
 [G]This is an example song
-To [A]help you use [DMaj7]chorditure`
+To [A]help you [A7]use chorditure [D]`
 
 interface Props {
 }
