@@ -2,7 +2,7 @@ import { Chord } from "./types";
 
 const CHORD_REGEX = /[a-zA-Z0-9#]+/; // matches Am, F#7, etc
 const CHORD_BRACKET_REGEX = /\[[a-zA-Z0-9#]+\]/; // matches [Am], [F#7], etc
-const CHORD_TYPE_REGEX = /(maj|min|dim|sus)[0-9]|m|0-9/i
+const CHORD_TYPE_REGEX = /((maj|min|dim|sus)[0-9])|([0-9])|(m)/i
 
 function parseLine(data: string) {
   const split = data?.trim()?.split(' ');
