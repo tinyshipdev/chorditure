@@ -1,3 +1,4 @@
+import Header from '@/components/Header'
 import Head from 'next/head'
 import Link from 'next/link'
 
@@ -11,11 +12,13 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <div className="home-container">
-          <h1>chorditure</h1>
-          <Link className='song-link' href="/paramore/crushcrushcrush">crushcrushcrush - paramore</Link>
-          <Link className='song-link' href="/taylor-swift/love-story">love story - taylor swift</Link>
-          <Link className='song-link' href="/macy-gray/i-try">i try - macy gray</Link>
+        <div className="wrapper">
+          <div className='py-10'>
+            <Header/>
+          </div>
+          <Link className='block underline' href="/paramore/crushcrushcrush">crushcrushcrush - paramore</Link>
+          <Link className='block underline' href="/taylor-swift/love-story">love story - taylor swift</Link>
+          <Link className='block underline' href="/macy-gray/i-try">i try - macy gray</Link>
         </div>
       </main>
     </>

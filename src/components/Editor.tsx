@@ -25,11 +25,11 @@ const Editor: React.FC<Props> = ({}) => {
   const [rawLyrics, setRawLyrics] = useState(EXAMPLE_LYRICS);
 
   return (
-    <div className='editor-container'>
+    <div className='flex'>
 
-      <textarea className='editor' value={rawLyrics} onChange={(e) => setRawLyrics(e.target.value)} name="lyrics" id="lyrics"></textarea>
+      <textarea className='w-[30%] min-h-screen p-10 bg-slate-50 focus:outline-none' value={rawLyrics} onChange={(e) => setRawLyrics(e.target.value)} name="lyrics" id="lyrics"></textarea>
 
-      <div className='editor-preview'>
+      <div className='w-[70%] min-h-screen p-10 wrapper'>
         <Sheet song={parseSong(rawLyrics)}/>
       </div>
     </div>

@@ -1,3 +1,4 @@
+import Header from '@/components/Header';
 import Sheet from '@/components/Sheet'
 import parseSong from '@/utils/parse-song'
 import Head from 'next/head'
@@ -16,7 +17,8 @@ export default function Song({ data }: Props) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <div className="song-container">
+        <div className="wrapper">
+          <Header/>
           <Sheet song={parseSong(data)}/>
         </div>
       </main>

@@ -1,87 +1,11 @@
-* {
-  box-sizing: border-box;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.debug * {
+  outline: 1px solid red;
 }
 
-html, body {
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  font-size: 20px;
-  font-family: 'Courier New', Courier, monospace;
-}
-
-.home-container {
-  padding: 2rem;
-  margin: 0 auto;
-  max-width: 50ch;
-  justify-content: center;
-}
-
-.song-container {
-  padding: 2rem;
-  margin: 0 auto;
-  display: flex;
-  max-width: 100ch;
-  justify-content: center;
-}
-
-.song-link {
-  display: block;
-  margin-bottom: 1rem;
-  width: 100%;
-}
-
-.song-meta {
-  margin: 3rem 0;
-}
-
-.song-actions {
-  display: flex;
-  gap: 1rem;
-  margin: 3rem 0;
-}
-
-.song-title {
-  margin: 0;
-  margin-bottom: 1rem;
-}
-
-.line {
-  display: flex;
-  margin-bottom: 0.5rem;
-}
-
-.chord {
-  font-weight: bold;
-  height: 1rem;
-  margin-bottom: 0.5rem;
-}
-
-/* Editor */
-
-.editor-container {
-  display: flex;
-}
-
-.editor {
-  width: 40%;
-  padding: 2rem;
-  height: 100%;
-  font-size: 1rem;
-  border: 0px;
-  height: 100vh;
-  background: #f1f1f1;
-}
-
-.editor:focus {
-  outline: 0;
-}
-
-.editor-preview {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  padding: 2rem;
+.wrapper {
+  @apply container m-auto md:w-[75ch] p-6
 }

@@ -36,11 +36,11 @@ const Sheet: React.FC<Props> = ({ song }) => {
       case DisplayType.INLINE: {
         return song?.lyrics?.map((line, index) => {
           return (
-            <div className='line' key={`line${index}`}>
+            <div className='flex mb-4 flex-wrap' key={`line${index}`}>
               {line?.map((l, index) => {
                 return (
                   <React.Fragment key={index}>
-                    <div><span className="chord">{calculateRoot(l?.c?.root)}{l?.c?.type}</span> {l?.w}</div>
+                    <div><span className="font-bold h-6">{calculateRoot(l?.c?.root)}{l?.c?.type}</span> {l?.w}</div>
                     <span>&nbsp;</span>
                   </React.Fragment>
                 )
@@ -52,12 +52,12 @@ const Sheet: React.FC<Props> = ({ song }) => {
       default: {
         return song?.lyrics?.map((line, index) => {
           return (
-            <div className='line' key={`line${index}`}>
+            <div className='flex mb-4 flex-wrap' key={`line${index}`}>
               {line?.map((l, index) => {
                 return (
                   <React.Fragment key={index}>
                     <div>
-                      <div className="chord">{calculateRoot(l?.c?.root)}{l?.c?.type}</div>
+                      <div className="font-bold h-6">{calculateRoot(l?.c?.root)}{l?.c?.type}</div>
                       <div>{l?.w}</div>
                     </div>
                     <span>&nbsp;</span>
@@ -74,22 +74,24 @@ const Sheet: React.FC<Props> = ({ song }) => {
   return (
     <div>
 
-      <div className='song-meta'>
+      <div className='py-10'>
         <small>{song?.artist}</small>
-        <h1 className='song-title'>{song?.title}</h1>
+        <h1 className='font-bold text-4xl'>{song?.title}</h1>
       </div>
 
-      <div className="song-actions">
-
-        <select name="displayType" value={type} onChange={(e) => setType(parseInt(e.target.value))}>
-          <option value={DisplayType.ABOVE}>Chords Above</option>
-          <option value={DisplayType.INLINE}>Chords Inline</option>
-        </select>
+      <div className="flex mb-10">
+{/* 
+        <div className='mr-8 flex items-center'>
+          <select name="displayType" value={type} onChange={(e) => setType(parseInt(e.target.value))}>
+            <option value={DisplayType.ABOVE}>chords above</option>
+            <option value={DisplayType.INLINE}>chords inline</option>
+          </select>
+        </div> */}
 
         <div>
-          <button onClick={() => setTranspose(transpose - 1 <= -12 ? 0 : transpose - 1)}>-</button>
-          <span>Transpose({transpose})</span>
-          <button onClick={() => setTranspose(transpose + 1 >= 12 ? 0 : transpose + 1)}>+</button>
+          <button className='mr-4 p-2' onClick={() => setTranspose(transpose - 1 <= -12 ? 0 : transpose - 1)}>-</button>
+          <span>transpose({transpose})</span>
+          <button className='ml-4 p-2' onClick={() => setTranspose(transpose + 1 >= 12 ? 0 : transpose + 1)}>+</button>
         </div>
       </div>
 
