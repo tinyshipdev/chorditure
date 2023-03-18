@@ -1,9 +1,7 @@
 import { Chord } from '@/utils/types';
 import React, { useState } from 'react';
 
-// const ROOTS_ARR = ['A', 'A#', 'Bb', 'B', 'C', 'C#', 'Db', 'D', 'D#', 'Eb', 'E', 'F', 'F#', 'Gb', 'G', 'G#', 'Ab']
-
-const ROOTS_ARR = ['A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#']
+const ROOTS = ['A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#']
 
 interface Props {
   song: {
@@ -22,18 +20,31 @@ const Sheet: React.FC<Props> = ({ song }) => {
   const [transpose, setTranspose] = useState(0);
   const [type, setType] = useState(DisplayType.ABOVE);
 
+  function calculateRoot(originalRoot: string | undefined) {
+    let root = null;
+
+    if (originalRoot) {
+      const r = ROOTS.indexOf(originalRoot);
+      root = ROOTS[(ROOTS.length + (r + transpose)) % ROOTS.length];
+    }
+
+    return root;
+  }
+
   const lines = () => {
     switch (type) {
       case DisplayType.INLINE: {
         return song?.lyrics?.map((line, index) => {
           return (
             <div className='line' key={`line${index}`}>
-              {line?.map((l, index) => (
-                <React.Fragment key={index}>
-                  <div><span className="chord">{l?.c?.root}{l?.c?.type}</span> {l?.w}</div>
-                  <span>&nbsp;</span>
-                </React.Fragment>
-              ))}
+              {line?.map((l, index) => {
+                return (
+                  <React.Fragment key={index}>
+                    <div><span className="chord">{calculateRoot(l?.c?.root)}{l?.c?.type}</span> {l?.w}</div>
+                    <span>&nbsp;</span>
+                  </React.Fragment>
+                )
+              })}
             </div>
           )
         })
@@ -43,18 +54,10 @@ const Sheet: React.FC<Props> = ({ song }) => {
           return (
             <div className='line' key={`line${index}`}>
               {line?.map((l, index) => {
-
-                let root = null;
-
-                if (l?.c?.root) {
-                  const r = ROOTS_ARR.indexOf(l?.c?.root);
-                  root = ROOTS_ARR[Math.abs((r + transpose) % ROOTS_ARR.length)];
-                }
-
                 return (
                   <React.Fragment key={index}>
                     <div>
-                      <div className="chord">{root}{l?.c?.type}</div>
+                      <div className="chord">{calculateRoot(l?.c?.root)}{l?.c?.type}</div>
                       <div>{l?.w}</div>
                     </div>
                     <span>&nbsp;</span>
@@ -74,17 +77,19 @@ const Sheet: React.FC<Props> = ({ song }) => {
       <div className='song-meta'>
         <small>{song?.artist}</small>
         <h1 className='song-title'>{song?.title}</h1>
+      </div>
+
+      <div className="song-actions">
 
         <select name="displayType" value={type} onChange={(e) => setType(parseInt(e.target.value))}>
-          <option value={DisplayType.ABOVE}>Above</option>
-          <option value={DisplayType.INLINE}>Inline</option>
+          <option value={DisplayType.ABOVE}>Chords Above</option>
+          <option value={DisplayType.INLINE}>Chords Inline</option>
         </select>
 
         <div>
-          <button onClick={() => setTranspose(transpose - 1)}>-</button>
-          <span>Transpose ({transpose})</span>
-          <button onClick={() => setTranspose(transpose + 1)}>+</button>
-          <button onClick={() => setTranspose(0)}>reset</button>
+          <button onClick={() => setTranspose(transpose - 1 <= -12 ? 0 : transpose - 1)}>-</button>
+          <span>Transpose({transpose})</span>
+          <button onClick={() => setTranspose(transpose + 1 >= 12 ? 0 : transpose + 1)}>+</button>
         </div>
       </div>
 

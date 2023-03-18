@@ -37,6 +37,12 @@ body {
   margin: 3rem 0;
 }
 
+.song-actions {
+  display: flex;
+  gap: 1rem;
+  margin: 3rem 0;
+}
+
 .song-title {
   margin: 0;
   margin-bottom: 1rem;
