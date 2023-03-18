@@ -1,13 +1,13 @@
+import { Chord } from '@/utils/types';
 import React, { useState } from 'react';
 
 interface Props {
   song: { 
     title: string, 
     artist: string, 
-    lyrics: { c: string | null, w: string }[][] 
+    lyrics: { c: Chord | null, w: string }[][] 
   };
 }
-
 
 enum DisplayType {
   INLINE,
@@ -25,7 +25,7 @@ const Sheet: React.FC<Props> = ({ song }) => {
             <div className='line' key={`line${index}`}>
               {line?.map((l, index) => (
                 <React.Fragment key={index}>
-                  <div><span className="chord">{l?.c}</span> {l?.w}</div>
+                  <div><span className="chord">{l?.c?.root}{l?.c?.type}</span> {l?.w}</div>
                   <span>&nbsp;</span>
                 </React.Fragment>
               ))}
@@ -40,7 +40,7 @@ const Sheet: React.FC<Props> = ({ song }) => {
               {line?.map((l, index) => (
                 <React.Fragment key={index}>
                   <div>
-                    <div className="chord">{l?.c}</div>
+                    <div className="chord">{l?.c?.root}{l?.c?.type}</div>
                     <div>{l?.w}</div>
                   </div>
                   <span>&nbsp;</span>

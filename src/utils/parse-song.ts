@@ -1,30 +1,30 @@
+import { Chord } from "./types";
+
+const CHORD_REGEX = /[a-zA-Z0-9#]+/; // matches Am, F#7, etc
+const CHORD_BRACKET_REGEX = /\[[a-zA-Z0-9#]+\]/; // matches [Am], [F#7], etc
+const CHORD_TYPE_REGEX = /(maj|min|dim)[0-9]|m|0-9/i
+
 function parseLine(data: string) {
   const split = data?.trim()?.split(' ');
 
   const result = split?.map((word) => {
     const w = word?.trim();
 
-    if(w[0] === '[') {
-      let i = 1;
-      let chord = '';
-      let end = 0;
-
-      while(i < w.length) {
-        let char = w[i];
-
-        if(char === ']') {
-          end = i;
-          break;
-        }
-
-        chord += char;
-        i++;
-      }
-
-      return { c: chord, w: word.substring(end + 1) };
-    } else {
+    if(w[0] !== '[') {
       return { c: null, w };
     }
+
+    const rawChord = w.match(CHORD_REGEX)?.[0];
+
+    const root = rawChord?.replace(CHORD_TYPE_REGEX, '');
+    const type = rawChord?.match(CHORD_TYPE_REGEX)?.[0];
+    
+    const chord: Chord = {
+      root: root || '',
+      type: type || '',
+    }
+
+    return { c: chord || null, w: w.replace(CHORD_BRACKET_REGEX, '') };
   })
 
   return result;
@@ -33,13 +33,13 @@ function parseLine(data: string) {
 function parseSong(data: string): { 
   title: string, 
   artist: string, 
-  lyrics: { c: string | null, w: string }[][] 
+  lyrics: { c: Chord | null, w: string }[][] 
 } {
 
   let song: { 
     title: string, 
     artist: string, 
-    lyrics: { c: string | null, w: string }[][] 
+    lyrics: { c: Chord | null, w: string }[][] 
   } = {
     title: '',
     artist: '',
