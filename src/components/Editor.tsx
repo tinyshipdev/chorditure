@@ -11,10 +11,12 @@ chorditure
 
 [lyrics]
 [Bm]Write your lyrics in the [G]left sidebar
-[A]Follow the syntax and [Fm]you'll get far
+[A]Follow the syntax and [F#m]you'll get far
 
 [G]This is an example song
-To [A]help you [A7]use chorditure [D]`
+To [A]help you [A7]use chorditure [D]
+
+[D] [Dsus4] [D]`
 
 interface Props {
 }
