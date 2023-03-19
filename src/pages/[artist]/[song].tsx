@@ -27,18 +27,22 @@ export default function Song({ data }: Props) {
 }
 
 export async function getStaticPaths() {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/songs`);
+  const data = await res.json()
+
   return {
-    paths: [
-      { params: { artist: 'paramore', song: 'crushcrushcrush'} },
-      { params: { artist: 'taylor-swift', song: 'love-story'} },
-      { params: { artist: 'macy-gray', song: 'i-try'} }
-    ],
+    paths: data?.songs?.map((song: { artist: string, title: string}) => ({
+      params: { artist: song.artist, song: song.title}
+    })),
     fallback: false
   };
 }
 
 export async function getStaticProps({params}: any) {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/songs/${params?.artist}/${params?.song}`);
-  const data = await res.text()
-  return { props: { data } }
+  const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/get-song?artist=${params?.artist}&title=${params?.song}`);
+  const data = await res.json()
+
+  const text = data?.data?.[0]?.data;
+
+  return { props: { data: text || '' } }
 }

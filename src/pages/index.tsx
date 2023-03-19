@@ -2,7 +2,7 @@ import Header from '@/components/Header'
 import Head from 'next/head'
 import Link from 'next/link'
 
-export default function Home() {
+export default function Home({ songs }: { songs: { id: number, title: string, artist: string }[] }) {
   return (
     <>
       <Head>
@@ -16,11 +16,19 @@ export default function Home() {
           <div className='py-10'>
             <Header/>
           </div>
-          <Link className='block underline' href="/paramore/crushcrushcrush">crushcrushcrush - paramore</Link>
-          <Link className='block underline' href="/taylor-swift/love-story">love story - taylor swift</Link>
-          <Link className='block underline' href="/macy-gray/i-try">i try - macy gray</Link>
+
+          {songs?.map((song) => (
+            <Link key={song.id} className='block underline' href={`/${song.artist}/${song.title}`}>{song.title} - {song.artist}</Link>
+          ))}
         </div>
       </main>
     </>
   )
+}
+
+export async function getStaticProps() {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/songs`);
+  const data = await res.json()
+
+  return { props: { songs: data.songs || [] } }
 }
