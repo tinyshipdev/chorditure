@@ -39,7 +39,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({params}: any) {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/get-song?artist=${params?.artist}&title=${params?.song}`);
+  const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/.netlify/functions/get-song?artist=${params?.artist}&title=${params?.song}`);
   const data = await res.json()
 
   const text = data?.data?.[0]?.data;
