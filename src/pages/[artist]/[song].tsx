@@ -27,7 +27,7 @@ export default function Song({ data }: Props) {
 }
 
 export async function getStaticPaths() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/songs`);
+  const res = await fetch(`${process.env.BACKEND_URL}/.netlify/functions/list-songs`);
   const data = await res.json()
 
   return {
@@ -39,10 +39,9 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({params}: any) {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/.netlify/functions/get-song?artist=${params?.artist}&title=${params?.song}`);
+  const res = await fetch(`${process.env.BACKEND_URL}/.netlify/functions/get-song?artist=${params?.artist}&song=${params?.song}`);
   const data = await res.json()
-
-  const text = data?.data?.[0]?.data;
+  const text = data?.songs?.[0]?.data;
 
   return { props: { data: text || '' } }
 }

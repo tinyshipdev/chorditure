@@ -27,8 +27,7 @@ export default function Home({ songs }: { songs: { id: number, title: string, ar
 }
 
 export async function getStaticProps() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/.netlify/functions/list-songs`);
+  const res = await fetch(`${process.env.BACKEND_URL}/.netlify/functions/list-songs`);
   const data = await res.json()
-
   return { props: { songs: data.songs || [] } }
 }
