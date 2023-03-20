@@ -1,12 +1,5 @@
 import { Chord } from "./types";
 
-const BRACKET_REGEX = /\[(.*?)\]/;
-const CHORD_BRACKET_REGEX = /\[[a-zA-Z0-9#]+\]/; // matches [Am], [F#7], etc
-const CHORD_TYPE_REGEX = /((maj|min|dim|sus|m)[0-9]?)|([0-9])/i
-
-const CHORD_TYPE = /\[[A-Z#]{1,2}(.*?)\]/
-
-const CHORD_REGEX = /\[([A-Z#]{1,2})(.*?)\]/;
 const WORD_REGEX = /\[([A-Z#]{1,2})(.*?)\](.*$)/
 
 function parseLine(data: string) {
@@ -16,8 +9,6 @@ function parseLine(data: string) {
     const w = word?.trim();
 
     const matches = w.match(WORD_REGEX);
-
-    console.log(matches);
 
     if(!matches?.[1]) {
       return { c: null, w };
