@@ -1,8 +1,13 @@
 import { Chord } from "./types";
 
-const CHORD_REGEX = /[a-zA-Z0-9#]+/; // matches Am, F#7, etc
+const BRACKET_REGEX = /\[(.*?)\]/;
 const CHORD_BRACKET_REGEX = /\[[a-zA-Z0-9#]+\]/; // matches [Am], [F#7], etc
 const CHORD_TYPE_REGEX = /((maj|min|dim|sus|m)[0-9]?)|([0-9])/i
+
+const CHORD_TYPE = /\[[A-Z#]{1,2}(.*?)\]/
+
+const CHORD_REGEX = /\[([A-Z#]{1,2})(.*?)\]/;
+const WORD_REGEX = /\[([A-Z#]{1,2})(.*?)\](.*$)/
 
 function parseLine(data: string) {
   const split = data?.trim()?.split(' ');
@@ -10,21 +15,20 @@ function parseLine(data: string) {
   const result = split?.map((word) => {
     const w = word?.trim();
 
-    if(w[0] !== '[') {
+    const matches = w.match(WORD_REGEX);
+
+    console.log(matches);
+
+    if(!matches?.[1]) {
       return { c: null, w };
     }
 
-    const rawChord = w.match(CHORD_REGEX)?.[0];
-
-    const root = rawChord?.replace(CHORD_TYPE_REGEX, '');
-    const type = rawChord?.match(CHORD_TYPE_REGEX)?.[0];
-    
     const chord: Chord = {
-      root: root || '',
-      type: type || '',
+      root: matches?.[1] || '',
+      type: matches?.[2] || '',
     }
 
-    return { c: chord || null, w: w.replace(CHORD_BRACKET_REGEX, '') };
+    return { c: chord || null, w: matches?.[3] };
   })
 
   return result;

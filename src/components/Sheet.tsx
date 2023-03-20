@@ -17,8 +17,6 @@ const Sheet: React.FC<Props> = ({ song, raw }) => {
   const router = useRouter();
   const [transpose, setTranspose] = useState(0);
 
-  console.log(router);
-
   function calculateRoot(originalRoot: string | undefined) {
     let root = null;
 
