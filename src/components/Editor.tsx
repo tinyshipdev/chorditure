@@ -1,7 +1,8 @@
 import parseSong from '@/utils/parse-song';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Sheet from './Sheet';
 
+const STORAGE_ID = 'chorditure-editor';
 
 const EXAMPLE_LYRICS = `[title] 
 example song
@@ -22,7 +23,23 @@ interface Props {
 }
 
 const Editor: React.FC<Props> = ({}) => {
-  const [rawLyrics, setRawLyrics] = useState(EXAMPLE_LYRICS);
+  const [rawLyrics, setRawLyrics] = useState('');
+
+  useEffect(() => {
+    const stored = window.localStorage.getItem(STORAGE_ID);
+
+    if(stored) {
+      setRawLyrics(stored);
+    } else {
+      setRawLyrics(EXAMPLE_LYRICS);
+    }
+  }, []);
+
+  useEffect(() => {
+    if(rawLyrics) {
+      window.localStorage.setItem(STORAGE_ID, rawLyrics);
+    }
+  }, [rawLyrics])
 
   return (
     <div className='flex'>
