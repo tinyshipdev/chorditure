@@ -56,7 +56,7 @@ const Editor: React.FC<Props> = ({}) => {
       <div 
         className={`w-full md:w-[70%] min-h-screen p-10 wrapper ${!isEditorVisible ? 'block' : 'hidden'} md:block`}
       >
-        <Sheet song={parseSong(rawLyrics)}/>
+        <Sheet song={parseSong(rawLyrics)} raw={rawLyrics}/>
       </div>
     </div>
   )
