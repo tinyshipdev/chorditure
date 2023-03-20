@@ -1,9 +1,11 @@
 import { Chord } from '@/utils/types';
+import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 
 const ROOTS = ['A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#']
 
 interface Props {
+  raw: string,
   song: {
     title: string,
     artist: string,
@@ -11,14 +13,11 @@ interface Props {
   };
 }
 
-enum DisplayType {
-  INLINE,
-  ABOVE
-}
-
-const Sheet: React.FC<Props> = ({ song }) => {
+const Sheet: React.FC<Props> = ({ song, raw }) => {
+  const router = useRouter();
   const [transpose, setTranspose] = useState(0);
-  const [type, setType] = useState(DisplayType.ABOVE);
+
+  console.log(router);
 
   function calculateRoot(originalRoot: string | undefined) {
     let root = null;
@@ -31,45 +30,23 @@ const Sheet: React.FC<Props> = ({ song }) => {
     return root;
   }
 
-  const lines = () => {
-    switch (type) {
-      case DisplayType.INLINE: {
-        return song?.lyrics?.map((line, index) => {
+  const lines = () => song?.lyrics?.map((line, index) => {
+    return (
+      <div className='flex mb-4 flex-wrap' key={`line${index}`}>
+        {line?.map((l, index) => {
           return (
-            <div className='flex mb-4 flex-wrap' key={`line${index}`}>
-              {line?.map((l, index) => {
-                return (
-                  <React.Fragment key={index}>
-                    <div><span className="font-bold h-6">{calculateRoot(l?.c?.root)}{l?.c?.type}</span> {l?.w}</div>
-                    <span>&nbsp;</span>
-                  </React.Fragment>
-                )
-              })}
-            </div>
+            <React.Fragment key={index}>
+              <div>
+                <div className="font-bold h-6">{calculateRoot(l?.c?.root)}{l?.c?.type}</div>
+                <div>{l?.w}</div>
+              </div>
+              <span>&nbsp;</span>
+            </React.Fragment>
           )
-        })
-      }
-      default: {
-        return song?.lyrics?.map((line, index) => {
-          return (
-            <div className='flex mb-4 flex-wrap' key={`line${index}`}>
-              {line?.map((l, index) => {
-                return (
-                  <React.Fragment key={index}>
-                    <div>
-                      <div className="font-bold h-6">{calculateRoot(l?.c?.root)}{l?.c?.type}</div>
-                      <div>{l?.w}</div>
-                    </div>
-                    <span>&nbsp;</span>
-                  </React.Fragment>
-                )
-              })}
-            </div>
-          )
-        })
-      }
-    }
-  }
+        })}
+      </div>
+    )
+  })
 
   return (
     <div>
@@ -80,14 +57,6 @@ const Sheet: React.FC<Props> = ({ song }) => {
       </div>
 
       <div className="flex mb-10">
-{/* 
-        <div className='mr-8 flex items-center'>
-          <select name="displayType" value={type} onChange={(e) => setType(parseInt(e.target.value))}>
-            <option value={DisplayType.ABOVE}>chords above</option>
-            <option value={DisplayType.INLINE}>chords inline</option>
-          </select>
-        </div> */}
-
         <div>
           <button className='mr-4 p-2' onClick={() => setTranspose(transpose - 1 <= -12 ? 0 : transpose - 1)}>-</button>
           <span>transpose({transpose})</span>
@@ -98,6 +67,13 @@ const Sheet: React.FC<Props> = ({ song }) => {
       <div>
         {lines()}
       </div>
+
+      {router?.query?.source && (
+        <div className="my-20 whitespace-pre-wrap">
+          <hr className='mb-20' />
+          {raw}
+        </div>
+      )}
     </div>
   )
 }

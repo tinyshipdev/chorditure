@@ -19,7 +19,7 @@ export default function Song({ data }: Props) {
       <main>
         <div className="wrapper">
           <Header/>
-          <Sheet song={parseSong(data)}/>
+          <Sheet song={parseSong(data)} raw={data}/>
         </div>
       </main>
     </>
