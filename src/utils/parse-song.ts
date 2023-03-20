@@ -2,7 +2,11 @@ import { Chord } from "./types";
 
 const WORD_REGEX = /\[([A-Z#]{1,2})(.*?)\](.*$)/
 
-function parseLine(data: string) {
+function parseLine(data: string): { c: Chord | null, w: string }[] {
+  if(data[0] === '*' && data[data.length - 1] === '*') {
+    return [{ c: null, w: data.trim() }]
+  }
+
   const split = data?.trim()?.split(' ');
 
   const result = split?.map((word) => {

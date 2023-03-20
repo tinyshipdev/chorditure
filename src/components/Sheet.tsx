@@ -29,9 +29,25 @@ const Sheet: React.FC<Props> = ({ song, raw }) => {
   }
 
   const lines = () => song?.lyrics?.map((line, index) => {
+    
+    if(line.length === 1 && !line[0].w) {
+      return <div key={`line${index}`} className='h-8'></div>;
+    }
+
     return (
       <div className='flex mb-4 flex-wrap' key={`line${index}`}>
         {line?.map((l, index) => {
+          
+          if(l.w[0] === '*' && l.w[l.w.length - 1] === '*') {
+            return (
+              <React.Fragment key={index}>
+                <div>
+                  <h2 className='font-bold text-2xl my-2'>{l?.w.substring(1, l.w.length - 1)}</h2>
+                </div>
+              </React.Fragment>
+            )
+          }
+
           return (
             <React.Fragment key={index}>
               <div>
