@@ -50,11 +50,11 @@ const Editor: React.FC<Props> = ({}) => {
       </button>
 
       <textarea 
-        className={`w-full md:w-[30%] min-h-screen p-10 bg-slate-50 focus:outline-none ${isEditorVisible ? 'block' : 'hidden'} md:block`} 
+        className={`w-full md:w-[50%] min-h-screen p-10 bg-slate-50 focus:outline-none ${isEditorVisible ? 'block' : 'hidden'} md:block`} 
       value={rawLyrics} onChange={(e) => setRawLyrics(e.target.value)} name="lyrics" id="lyrics"></textarea>
 
       <div 
-        className={`w-full md:w-[70%] min-h-screen p-10 wrapper ${!isEditorVisible ? 'block' : 'hidden'} md:block`}
+        className={`w-full md:w-[50%] min-h-screen px-10 pb-10 wrapper ${!isEditorVisible ? 'block' : 'hidden'} md:block`}
       >
         <Sheet song={parseSong(rawLyrics)} raw={rawLyrics}/>
       </div>

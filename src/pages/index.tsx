@@ -13,9 +13,7 @@ export default function Home({ songs }: { songs: { id: number, title: string, ar
       </Head>
       <main>
         <div className="wrapper">
-          <div className='py-10'>
-            <Header/>
-          </div>
+          <Header/>
 
           {songs?.map((song) => (
             <Link key={song.id} className='block underline' href={`/${song.artist}/${song.title}`}>{song.title} - {song.artist}</Link>

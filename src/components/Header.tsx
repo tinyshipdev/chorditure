@@ -6,7 +6,7 @@ interface Props {
 
 const Header: React.FC<Props> = ({}) => {
   return (
-    <div>
+    <div className='py-2'>
       <Link href={'/'}>chorditure</Link>
     </div>
   )
