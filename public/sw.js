@@ -1,14 +1,5 @@
 const CACHE_NAME = 'v1';
 
-const CACHE_URLS = [
-  "/",
-  "/index.html",
-  "/style.css",
-  "/app.js",
-  "/logo.svg",
-  "/paramore/crushcrushcrush"
-]
-
 const addResourcesToCache = async (resources) => {
   const cache = await caches.open(CACHE_NAME);
 
@@ -22,13 +13,14 @@ const addResourcesToCache = async (resources) => {
 self.addEventListener("install", async function (event) {
   console.log("Service Worker installed");
 
+  const paths = await (await fetch('https://api.chorditure.com/.netlify/functions/get-paths')).json();
+
   event.waitUntil(
     caches.open("v1")
       .then((cache) => cache.addAll([
         "/", 
         '/logo.svg', 
-        '/paramore/crushcrushcrush',
-        '/macy-gray/i-try'
+        ...paths
       ]))
   );
 });
