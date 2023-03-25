@@ -13,26 +13,33 @@ const addResourcesToCache = async (resources) => {
 self.addEventListener("install", async function (event) {
   console.log("Service Worker installed");
 
-  const paths = await (await fetch('https://api.chorditure.com/.netlify/functions/get-paths')).json();
-
   event.waitUntil(
     caches.open("v1")
       .then((cache) => cache.addAll([
         "/", 
         '/logo.svg', 
-        ...paths
+        "/paramore/crushcrushcrush",
+        "/macy-gray/i-try",
+        "/maneskin/beggin"
       ]))
   );
 });
 
 self.addEventListener('fetch', function(event) {
-  console.log(event);
   event.respondWith(async function() {
      try{
        const res = await fetch(event.request);
        const cache = await caches.open(CACHE_NAME);
-       cache.put(event.request.url, res.clone());
-       return res;
+
+       if(
+        event.request.url.startsWith('https') || 
+        event.request.url.startsWith('http')
+      ) {
+         cache.put(event.request.url, res.clone());
+         return res;
+       }
+
+       return;
      }
      catch(error){
        return caches.match(event.request);
