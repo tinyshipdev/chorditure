@@ -1,49 +1,64 @@
 import { Chord } from "./types";
 
+type Song = {
+  title: string,
+  artist: string,
+  lyrics: string,
+}
+
+const ROOTS = ['A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#']
+
 const WORD_REGEX = /\[([A-Z#]{1,2})(.*?)\](.*$)/
 
-function parseLine(data: string): { c: Chord | null, w: string }[] {
-  if(data[0] === '*' && data[data.length - 1] === '*') {
-    return [{ c: null, w: data.trim() }]
+const CHORD_REGEX = /\[([A-G#])(.*?)\]/;
+
+function calculateRoot(originalRoot: string | undefined, transpose: number) {
+  let root = null;
+
+  if (originalRoot) {
+    const r = ROOTS.indexOf(originalRoot);
+    root = ROOTS[(ROOTS.length + (r + transpose)) % ROOTS.length];
   }
 
+  return root || originalRoot;
+}
+
+function parseLine(
+  data: string, 
+  transpose: number,
+  raw: boolean,
+): string {
   const split = data?.trim()?.split(' ');
 
   const result = split?.map((word) => {
     const w = word?.trim();
 
-    const matches = w.match(WORD_REGEX);
+    const matches = w.match(CHORD_REGEX);
 
-    if(!matches?.[1]) {
-      return { c: null, w };
+    const root = matches?.[1];
+    const type = matches?.[2];
+
+    if(root) {
+
+      if(raw) {
+        return `[${calculateRoot(root, transpose || 0)}${type}]`;
+      }
+
+      return `<b>${calculateRoot(root, transpose || 0)}${type}</b>`;
     }
-
-    const chord: Chord = {
-      root: matches?.[1] || '',
-      type: matches?.[2] || '',
-    }
-
-    return { c: chord || null, w: matches?.[3] };
-  })
+    return word;
+  }).join(' ');
 
   return result;
 }
 
-function parseSong(data: string): { 
-  title: string, 
-  artist: string, 
-  lyrics: { c: Chord | null, w: string }[][] 
-} {
+function parseSong(
+  data: string, 
+  transpose: number,
+  raw: boolean
+): Song {
 
-  let song: { 
-    title: string, 
-    artist: string, 
-    lyrics: { c: Chord | null, w: string }[][] 
-  } = {
-    title: '',
-    artist: '',
-    lyrics: []
-  }
+  let song: Song = { title: '', artist: '', lyrics: '' };
 
   const split = data?.trim()?.split('\n');
 
@@ -65,7 +80,7 @@ function parseSong(data: string): {
       i++;
     } else {
       if(isLyrics) {
-        song.lyrics.push(parseLine(line));
+        song.lyrics += parseLine(line, transpose, raw) + '\n';
       }
       i++;
     }

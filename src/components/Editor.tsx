@@ -1,4 +1,3 @@
-import parseSong from '@/utils/parse-song';
 import React, { useEffect, useState } from 'react';
 import Sheet from './Sheet';
 
@@ -56,7 +55,7 @@ const Editor: React.FC<Props> = ({}) => {
       <div 
         className={`w-full md:w-[50%] min-h-screen px-10 pb-10 wrapper ${!isEditorVisible ? 'block' : 'hidden'} md:block`}
       >
-        <Sheet song={parseSong(rawLyrics)} raw={rawLyrics}/>
+        <Sheet data={rawLyrics}/>
       </div>
     </div>
   )
