@@ -51,8 +51,7 @@ const Sheet: React.FC<Props> = ({ song, raw }) => {
           return (
             <React.Fragment key={index}>
               <div>
-                <div className="font-bold h-6">{calculateRoot(l?.c?.root)}{l?.c?.type}</div>
-                <div>{l?.w}</div>
+                <div><span className="font-bold h-6">{calculateRoot(l?.c?.root)}{l?.c?.type}</span> {l?.w}</div>
               </div>
               <span>&nbsp;</span>
             </React.Fragment>
