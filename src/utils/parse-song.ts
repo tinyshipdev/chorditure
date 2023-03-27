@@ -6,7 +6,7 @@ type Song = {
 
 const ROOTS = ['A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#']
 
-const CHORD_REGEX = /\[([A-G#])(.*?)\]/;
+const CHORD_REGEX = /\[([A-G#]{1,2})(.*?)\]/;
 
 function calculateRoot(originalRoot: string | undefined, transpose: number) {
   let root = null;
