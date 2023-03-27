@@ -1,5 +1,3 @@
-import { Chord } from "./types";
-
 type Song = {
   title: string,
   artist: string,
@@ -7,8 +5,6 @@ type Song = {
 }
 
 const ROOTS = ['A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#']
-
-const WORD_REGEX = /\[([A-Z#]{1,2})(.*?)\](.*$)/
 
 const CHORD_REGEX = /\[([A-G#])(.*?)\]/;
 
