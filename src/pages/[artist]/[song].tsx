@@ -1,6 +1,7 @@
 import Header from '@/components/Header';
 import Sheet from '@/components/Sheet'
-import parseSong from '@/utils/parse-song'
+import getSong from '@/utils/get-song';
+import getSongList from '@/utils/get-song-list';
 import Head from 'next/head'
 
 interface Props {
@@ -27,11 +28,9 @@ export default function Song({ data }: Props) {
 }
 
 export async function getStaticPaths() {
-  const res = await fetch(`${process.env.BACKEND_URL}/.netlify/functions/list-songs`);
-  const data = await res.json()
-
+  const songs: any = await getSongList();
   return {
-    paths: data?.songs?.map((song: { artist: string, title: string}) => ({
+    paths: songs?.map((song: { artist: string, title: string}) => ({
       params: { artist: song.artist, song: song.title}
     })),
     fallback: false
@@ -39,9 +38,6 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({params}: any) {
-  const res = await fetch(`${process.env.BACKEND_URL}/.netlify/functions/get-song?artist=${params?.artist}&song=${params?.song}`);
-  const data = await res.json()
-  const text = data?.songs?.[0]?.data;
-
-  return { props: { data: text || '' } }
+  const song: any = await getSong(params?.song, params?.artist);
+  return { props: { data: song?.data } }
 }

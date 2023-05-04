@@ -1,4 +1,5 @@
 import Header from '@/components/Header'
+import getSongList from '@/utils/get-song-list'
 import Head from 'next/head'
 import Link from 'next/link'
 
@@ -27,7 +28,6 @@ export default function Home({ songs }: { songs: { id: number, title: string, ar
 }
 
 export async function getStaticProps() {
-  const res = await fetch(`${process.env.BACKEND_URL}/.netlify/functions/list-songs`);
-  const data = await res.json()
-  return { props: { songs: data.songs || [] } }
+  const songs = await getSongList();
+  return { props: { songs } }
 }

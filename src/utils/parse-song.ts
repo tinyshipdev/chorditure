@@ -6,7 +6,7 @@ type Song = {
 
 const ROOTS = ['A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#']
 
-const CHORD_REGEX = /\[([A-G#]{1,2})(.*?)\]/;
+const CHORD_REGEX = /([A-G#]{1,2})(m[0-9]?|add[0-9]|maj|sus[0-9]|dim|[0-9])?/gm
 
 function calculateRoot(originalRoot: string | undefined, transpose: number) {
   let root = null;
@@ -24,28 +24,11 @@ function parseLine(
   transpose: number,
   raw: boolean,
 ): string {
-  const split = data?.trim()?.split(' ');
-
-  const result = split?.map((word) => {
-    const w = word?.trim();
-
-    const matches = w.match(CHORD_REGEX);
-
-    const root = matches?.[1];
-    const type = matches?.[2];
-
-    if(root) {
-
-      if(raw) {
-        return `[${calculateRoot(root, transpose || 0)}${type}]`;
-      }
-
-      return `<b>${calculateRoot(root, transpose || 0)}${type}</b>`;
-    }
-    return word;
+  return data?.trim()?.split(' ')?.map((word) => {
+    return word?.trim()?.replaceAll(CHORD_REGEX, (match, p1, p2) => {
+      return `<b>${calculateRoot(p1, transpose)}${p2 ? p2 : ''}</b>`;
+    })
   }).join(' ');
-
-  return result;
 }
 
 function parseSong(
