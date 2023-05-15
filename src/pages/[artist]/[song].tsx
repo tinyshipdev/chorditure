@@ -29,6 +29,7 @@ export default function Song({ data }: Props) {
 
 export async function getStaticPaths() {
   const songs: any = await getSongList();
+
   return {
     paths: songs?.map((song: { artist: string, title: string}) => ({
       params: { artist: song.artist, song: song.title}
@@ -38,6 +39,6 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({params}: any) {
-  const song: any = await getSong(params?.song, params?.artist);
-  return { props: { data: song?.data } }
+  const song: string = await getSong(params?.song, params?.artist);
+  return { props: { data: song } }
 }

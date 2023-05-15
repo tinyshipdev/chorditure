@@ -18,7 +18,7 @@ export default function Home({ songs }: { songs: { id: number, title: string, ar
 
           <div className="py-10">
             {songs?.map((song) => (
-              <Link key={song.id} className='block underline py-4' href={`/${song.artist}/${song.title}`}>{song.title} - {song.artist}</Link>
+              <Link key={Buffer.from(`${song.artist}${song.title}`).toString('base64')} className='block underline py-4' href={`/${song.artist}/${song.title}`}>{song.title} - {song.artist}</Link>
             ))}
           </div>
         </div>
