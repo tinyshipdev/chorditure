@@ -9,3 +9,8 @@
 .wrapper {
   @apply container m-auto md:w-[75ch] p-6
 }
+
+.chord {
+  font-weight: bold;
+  color: #359fdb;
+}

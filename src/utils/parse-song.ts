@@ -26,7 +26,7 @@ function parseLine(
 ): string {
   return data?.trim()?.split(' ')?.map((word) => {
     return word?.trim()?.replaceAll(CHORD_REGEX, (match, p1, p2) => {
-      return `<b>${calculateRoot(p1, transpose)}${p2 ? p2 : ''}</b>`;
+      return `<span class="chord">${calculateRoot(p1, transpose)}${p2 ? p2 : ''}</span>`;
     })
   }).join(' ');
 }

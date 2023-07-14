@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Sheet from './Sheet';
+import Link from 'next/link';
 
 const STORAGE_ID = 'chorditure-editor';
 
@@ -42,20 +43,27 @@ const Editor: React.FC<Props> = ({}) => {
   }, [rawLyrics])
 
   return (
-    <div className='md:flex'>
+    <div>
+      <div className='p-8 bg-slate-50 flex justify-between'>
+        <Link href={'/'}>
+          <img className='w-6' src="/logo.svg" alt="chorditure" />
+        </Link>
+        <button className='border-2 text-slate-600 py-0.5 px-2 rounded md:hidden' onClick={() => setIsEditorVisible(!isEditorVisible)}>
+          {isEditorVisible ? 'preview' : 'edit'}
+        </button>
+      </div>
 
-      <button className='bg-slate-500	text-white py-0.5 px-2 rounded md:hidden absolute top-4 right-4' onClick={() => setIsEditorVisible(!isEditorVisible)}>
-        {isEditorVisible ? 'preview' : 'edit'}
-      </button>
+      <div className='md:flex'>
 
-      <textarea 
-        className={`w-full md:w-[50%] min-h-screen p-10 bg-slate-50 focus:outline-none ${isEditorVisible ? 'block' : 'hidden'} md:block`} 
-      value={rawLyrics} onChange={(e) => setRawLyrics(e.target.value)} name="lyrics" id="lyrics"></textarea>
+        <textarea 
+          className={`w-full md:w-[50%] min-h-screen p-10 bg-slate-50 focus:outline-none ${isEditorVisible ? 'block' : 'hidden'} md:block`} 
+        value={rawLyrics} onChange={(e) => setRawLyrics(e.target.value)} name="lyrics" id="lyrics"></textarea>
 
-      <div 
-        className={`w-full md:w-[50%] min-h-screen px-10 pb-10 wrapper ${!isEditorVisible ? 'block' : 'hidden'} md:block`}
-      >
-        <Sheet data={rawLyrics}/>
+        <div 
+          className={`shadow-xl w-full md:w-[50%] min-h-screen px-10 pb-10 wrapper ${!isEditorVisible ? 'block' : 'hidden'} md:block`}
+        >
+          <Sheet data={rawLyrics}/>
+        </div>
       </div>
     </div>
   )
