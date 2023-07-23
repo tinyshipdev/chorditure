@@ -11,6 +11,9 @@ export default function Document() {
       <body className='font-mono text-lg'>
         <Main />
         <NextScript />
+        <footer className="text-center py-20">
+          <span className="text-slate-500">made by</span> <a href="https://adamgray.dev">@ahdumgray</a>
+        </footer>
       </body>
     </Html>
   )
