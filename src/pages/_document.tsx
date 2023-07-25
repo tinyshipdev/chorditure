@@ -12,7 +12,7 @@ export default function Document() {
         <Main />
         <NextScript />
         <footer className="text-center py-20">
-          <span className="text-slate-500">made by</span> <a href="https://twitter.com/tinyshipdev">@tinyshipdev</a>
+          <span className="text-slate-500">made by</span> <a href="https://tinyship.dev">@tinyshipdev</a>
         </footer>
       </body>
     </Html>
